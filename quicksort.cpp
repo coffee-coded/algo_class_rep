@@ -1,5 +1,6 @@
 #include<stdio.h>
 void PrintArray(int pInt[], int size);
+void QuickSort(int *arr, int lower, int upper, int size);
 int Partition(int *arr, int lower, int upper, int size);
 int Partition2(int *arr, int lower, int upper, int size);
 void Swap(int *arr, int x1, int x2);
@@ -30,7 +31,7 @@ void QuickSort(int *arr, int lower, int upper, int size){
         if(lower<upper){
             int mid=Partition2(arr,lower,upper,size);
             QuickSort(arr,lower,mid-1,size);
-            QuickSort(arr,mid,upper,size);
+            QuickSort(arr,mid+1,upper,size);
         }
 }
 
@@ -53,10 +54,7 @@ int Partition(int *arr, int lower, int upper, int size){
 
 //Algo in class; 2nd QS call should be mid
 int Partition2(int *arr, int lower, int upper, int size){
-    int pivot = arr[lower];
-    int tmp;
-    int i=lower+1;
-    int j=upper;
+    int pivot=arr[lower], tmp, i=lower+1, j=upper;
     while(i<=j){
         while(arr[i]<pivot && i<=upper)
             i++;
@@ -67,10 +65,11 @@ int Partition2(int *arr, int lower, int upper, int size){
         }
     }
     Swap(arr,j,lower);
-
+    return j;
 }
+
 void Swap(int *arr, int x1, int x2){
-    int tmp = arr[x1];
+    int tmp=arr[x1];
     arr[x1]=arr[x2];
     arr[x2]=tmp;
 }
